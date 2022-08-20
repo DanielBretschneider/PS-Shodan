@@ -16,7 +16,9 @@
 . "C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-Variables.ps1"
 
 
+#
 # ------------- Functions -------------
+#
 
 #
 # log - print out and log informatuion

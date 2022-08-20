@@ -11,6 +11,14 @@
 #>
 
 #
+# ------------ SHODAN API AND COMMANDS ------------
+#
+$SHODAN_API = "https://api.shodan.io"
+$SHODAN_API_KEY = ""
+$SHODAN_CMD_APIINFO = "/api-info"
+
+
+#
 # ------------ SCRIPT PATHS ------------
 #
 $PS_SHODAN_VARIABLES_SCRIPT = "C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-Variables.ps1"
@@ -64,7 +72,7 @@ $PS_SHODAN_FILES_LIST = @($PS_SHODAN_KEY_FILE, $PS_SHODAN_IP_LIST, $PS_SHODAN_DO
 $IS_LOGGING_ACTIVE = $True
 
 # path to log file
-$LOG_FILE_PATH = "C:\Users\$env:UserName\Desktop\PS-Shodan\psshodanlog.log"
+$LOG_FILE_PATH = "C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-LOG.log"
 
 # get current date and datetime
 $CURRENT_DATE = Get-Date -format s

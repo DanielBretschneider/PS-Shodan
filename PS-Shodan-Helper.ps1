@@ -123,3 +123,9 @@ function user_input
     return $user_input
 
 }
+
+function get_api_key
+{
+    $apikey = Get-Content -Path C:\Users\db\AppData\Roaming\PS-Shodan\targets\apikey.txt
+    return $apikey
+}

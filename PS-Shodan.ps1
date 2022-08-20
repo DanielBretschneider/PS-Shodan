@@ -18,6 +18,15 @@
      https://github.com/DanielBretschneider/PS-Shodans
 #>
 
+#
+#  ------------- CMD Arguments ------------- 
+#
+param
+(
+     [string]$command,
+     [string]$target
+)
+
 
 #
 # ------------- INCLUDES ------------- 
@@ -25,12 +34,11 @@
 . C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-Variables.ps1
 . C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-Logger.ps1
 . C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-Helper.ps1
-
+. C:\Users\$env:UserName\Desktop\PS-Shodan\PS-Shodan-CLI.ps1
 
 #
 # ------------- CODE ------------- 
 #
-
 
 <#
 .Description
@@ -119,11 +127,14 @@ function check_API_key
 
           # Write api key to file
           $apikey | Out-File -FilePath $PS_SHODAN_KEY_FILE
-          log 0 "check_API_key" "Wrote API key $apikey to file '$PS_SHODAN_KEY_FILE'"
+          $SHODAN_API_KEY = Get-Content -Path $PS_SHODAN_KEY_FILE
      }
      else {
           log 0 "check_API_key" "API key was already entered to '$PS_SHODAN_KEY_FILE'"
      }
+
+     # reset key
+     $SHODAN_API_KEY = Get-Content -Path $PS_SHODAN_KEY_FILE
 }
 
 
@@ -141,6 +152,9 @@ function main
 
      # check if api key is existent
      check_API_key
+
+     # start processing given arguments
+     start_cli $command
 }
 
 

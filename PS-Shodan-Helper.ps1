@@ -15,6 +15,23 @@
 # ------------- Functions -------------
 #
 
+
+<#
+.Description
+Prints formatted message#>
+function msg
+{
+    # parameter
+    param
+    (
+        $message
+    )
+
+    #print message to console
+    Write-Host "[#] $message"
+}
+
+
 <#
 .Description
 Checks if folder exists. If not than this function
@@ -60,4 +77,49 @@ function check_if_file_exists
     {
         log 0 "PS-Shodan-Helper.ps1 - check_if_file_exists" "File '$file' existing. "
     }
+}
+
+
+<#
+.Description
+Returns True if file is empty, otherwise False.
+#>
+function is_file_blank
+{
+    # necessary parameter
+    param
+    (
+        $file
+    )
+
+    #check if empty
+    If (!(Get-Content $file)) 
+    {
+        # file is blank
+        return $True
+    }
+        
+    # file contains something
+    return $False
+}
+
+
+<#
+.Description
+Prints message and retourns user input
+#>
+function user_input 
+{
+    # necessary parameter
+    param
+    (
+        $message
+    )
+
+    # get user input
+    $user_input = Read-Host $message
+
+    # return input
+    return $user_input
+
 }

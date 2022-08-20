@@ -15,8 +15,9 @@
      Author     : Daniel Bretschneider - daniel.bretschneider@frequentis.com
      Company    : Frequentis AG
 .LINK
-     https://github.com/DanielBretschneider/PS-Shodan
+     https://github.com/DanielBretschneider/PS-Shodans
 #>
+
 
 #
 # ------------- INCLUDES ------------- 
@@ -105,6 +106,29 @@ function check_psshodan_files
 
 <#
 .Description
+This function checks if %appdata%\PS-Shodan files are existing, 
+if not then the files will be created, f.e. key.txt, ips.txt, hosts.txt, domains.txt, filter.txt
+#>
+function check_API_key
+{
+     # check if file is empty
+     if (is_file_blank $PS_SHODAN_KEY_FILE)
+     {
+          # api key file is blank, now ask for the key
+          $apikey = user_input "Please enter your Shodan API key"
+
+          # Write api key to file
+          $apikey | Out-File -FilePath $PS_SHODAN_KEY_FILE
+          log 0 "check_API_key" "Wrote API key $apikey to file '$PS_SHODAN_KEY_FILE'"
+     }
+     else {
+          log 0 "check_API_key" "API key was already entered to '$PS_SHODAN_KEY_FILE'"
+     }
+}
+
+
+<#
+.Description
 Main function of starting point of PS-Shodan.
 #>
 function main 
@@ -114,6 +138,9 @@ function main
      
      # create folders and files needed for PS-Shodan
      create_files_and_folders
+
+     # check if api key is existent
+     check_API_key
 }
 
 

@@ -30,6 +30,36 @@
 # ------------- CODE ------------- 
 #
 
+
+<#
+.Description
+Print Version and datetime
+#>
+function print_welcom_message
+{
+     # start message
+     Write-Host "$NEWLINE"
+     log 0 "main" "PS-Shodan v1.1 started at $CURRENT_DATE"
+}
+
+
+<#
+.Description
+This function checks if needed folders and files are existing
+#>
+function create_files_and_folders
+{
+     # create log file
+     create_log_file
+
+     # check if %appdata%\PS-Shodan(\targets) is already created
+     check_psshodan_folders
+          
+     # check if PS-Shodan files (key.txt, ips.txt, hosts.txt, domains.txt, filter.txt) are already created
+     check_psshodan_files
+}
+
+
 <#
 .Description
 This function checks if %appdata%\PS-Shodan is existing, 
@@ -79,18 +109,11 @@ Main function of starting point of PS-Shodan.
 #>
 function main 
 {
-     # start message
-     Write-Host "$NEWLINE"
-     log 0 "main" "PS-Shodan v1.1 started at $CURRENT_DATE"
-
-     # create log file
-     create_log_file
-
-     # check if %appdata%\PS-Shodan(\targets) is already created
-     check_psshodan_folders
-          
-     # check if PS-Shodan files (key.txt, ips.txt, hosts.txt, domains.txt, filter.txt) are already created
-     check_psshodan_files
+     # welcome
+     print_welcom_message
+     
+     # create folders and files needed for PS-Shodan
+     create_files_and_folders
 }
 
 

@@ -52,6 +52,6 @@ function cli_one_argument_passed
     # switch
     if ($cmd -eq "GetAPIInfo")
     {
-        invoke_api_shodan_reqest $("https://api.shodan.io/api-info?key=EIEXqSd3ZOgTfpZxpQTtJICQ0iwJzxT6")
+        invoke_api_shodan_reqest $("https://api.shodan.io/api-info?key=$apikey")
     }
 }

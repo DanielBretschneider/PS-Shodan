@@ -21,4 +21,3 @@ function Print-Msg
     # print 
     Write-Host "[*] $Text"
 }
-

@@ -18,7 +18,12 @@
 param 
 (
     [Parameter(Mandatory=$False)]
-    [string] $Hostlist
+    [string] $IP,
+    [Parameter(Mandatory=$False)]
+    [string] $Hostlist,
+    [Parameter(Mandatory=$False)]
+    [AllowNull()]
+    [string]$Show
 )
 
 
@@ -28,6 +33,7 @@ param
 . .\PS-ShodanFileOperations.ps1
 . .\PS-ConsoleHandler.ps1
 . .\PS-ShodanVars.ps1
+. .\PS-ShodanOperations.ps1
 
 
 #
@@ -62,8 +68,52 @@ function Get-ParameterCount
     {
         $count++
     }
+    if (!($IP -eq ""))
+    {
+        $count++
+    }
+    if (!($Show -eq ""))
+    {
+        $count++
+    }
 
     return $count
+}
+
+
+function Evaluate-Action 
+{
+    <#
+        .SYNOPSIS
+            This function decides on the basis of given parameters
+            which actions needs to be executed.
+    #>
+
+    # Check arguments and do your job
+    # show / print something
+    if ($Show -ne "")
+    {
+        switch ($Show) 
+        {
+            "apikey"    { Print-Msg "Your API key is: $(Get-ShodanApiKey)" }
+            "info"      { Print-ShodanApiInfo }
+            "help"      {  }
+            Default { Print-Msg "'$Show' is not recongnized" }
+        }
+    }
+
+    # print shodan info about specific ip
+    if ($IP -ne "")
+    {
+        Print-InfoOnHost $IP
+    }
+
+    # read list of hosts and show info
+    if ($Hostlist -ne "")
+    {
+        # read in list of host in txt file and print info
+    }
+
 }
 
 
@@ -85,9 +135,16 @@ function Setup-PS-Shodan
     {
         Get-ShodanKey
     }
+}
 
-    # Check CMD Arguements
-    Print-Msg "CMDArg Count: $(Get-ParameterCount)"
+
+function Print-HelpMessage
+{
+    <#
+        .SYNOPSIS
+            Prints help message
+    #>
+    Write-Host "Help"
 }
 
 
@@ -104,6 +161,18 @@ function Main
     # do initital install or startup checks
     Setup-PS-Shodan
 
+    # Do something
+    if ($(Get-ParameterCount) -eq 0)
+    {
+        <# Show the user all possible commands #>
+        Print-HelpMessage
+    }
+    else 
+    {
+        <# Do something #>
+        Evaluate-Action    
+    }
+    
 }
 
 
